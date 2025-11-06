@@ -27,7 +27,7 @@ const { title, items } = Astro.props;
     </h2>
     
     <div class="pb-10 border-b border-white/20 flex flex-col gap-8">
-      {items.map((item) => (
+      {items.map((item, idx) => (
         <div class="flex justify-between flex-col md:flex-row gap-1 md:gap-15 lg:gap-20">
           <div class="w-full md:w-36 lg:w-48">
             <span class="text-white/60">
@@ -36,7 +36,7 @@ const { title, items } = Astro.props;
           </div>
           
           <div class="flex-1 gap-1">
-            {item.media && <Image class="rounded mb-2" width={1600} height={900} src={item.media} alt="Nutshell Demo" />}
+            {item.media && <Image loading={idx === 0 ? "eager" : 'lazy'} class="rounded mb-2" width={1600} height={900} src={item.media} alt="Nutshell Demo" />}
             <h3 class="text-lg font-semibold text-white/90">
               {item.title}
             </h3>

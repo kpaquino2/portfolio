@@ -1,0 +1,9 @@
+---
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props
+
+---
+<a target='_blank' rel='noopener noreferrer' href={url} class='underline underline-offset-4 text-teal-400 decoration-white/20 hover:decoration-teal-400'><slot/></a>

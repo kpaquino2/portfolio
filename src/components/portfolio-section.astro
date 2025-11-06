@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import Link from './link.astro'
+
+interface Props {
+  title: string;
+  items: {
+    year: string;
+    title: string;
+    subtitle: string;
+    description: string[];
+    media?: string
+    links?: {
+      text: string;
+      url: string;
+    }[]
+  }[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<section>
+  <div class="md:w-180 lg:w-240 mx-auto px-4">
+    <h2 class="text-xl md:text-2xl font-semibold mb-3 md:mb-6">
+      {title}
+    </h2>
+    
+    <div class="pb-10 border-b border-white/20 flex flex-col gap-8">
+      {items.map((item) => (
+        <div class="flex justify-between flex-col md:flex-row gap-1 md:gap-15 lg:gap-20">
+          <div class="w-full md:w-36 lg:w-48">
+            <span class="text-white/60">
+              {item.year}
+            </span>
+          </div>
+          
+          <div class="flex-1 gap-1">
+            {item.media && <Image class="rounded mb-2" width={1600} height={900} src={item.media} alt="Nutshell Demo" />}
+            <h3 class="text-lg font-semibold text-white/90">
+              {item.title}
+            </h3>
+            <p class="text-sm md:text-base leading-none mb-2 text-white/40">
+              {item.subtitle}
+            </p>
+            <ul class="text-white/70 lg:text-base text-sm list-inside ">
+              {item.description.map((d) => (
+                <li class="leading-relaxed" set:html={d} />
+              ))}
+            </ul>
+            <div>
+              {item.links?.map((link, i) => (
+                <>
+                  <Link url={link.url}>{link.text}</Link>
+                  {i + 1 !== item.links?.length && <span class="text-white/20 mx-1">|</span>}
+                </>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
